@@ -11,6 +11,9 @@ import json
 import time
 import pandas as pd
 
+#latitude: -23.559478
+#Longitude: -46.733533
+
 def main():
     # Elaboração do dicionario de palavras
     
@@ -102,6 +105,7 @@ def main():
     Local_df['duplicador'] = Local_df['Local_nome'] + Local_df['Local_Endereço']
     Local_df.drop_duplicates(['duplicador'], inplace=True)
     
+    print(Local_df)
 
 # Funções auxiliares
 def string_busca(lista, palavra):
