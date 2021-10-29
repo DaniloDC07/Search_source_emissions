@@ -5,6 +5,12 @@
 Criar uma formar de salvar o dataframe em um arquivo à cada chamada.
 
 """
+''' comentarios
+
+Consertar erro da condicao de arquivo.bin vazio
+
+'''
+
 
 import requests
 import json
@@ -13,6 +19,7 @@ import pandas as pd
 import pickle
 import sys
 import os
+import io
 
 
 class SearchSources:
@@ -63,18 +70,15 @@ class SearchSources:
         
     def __init__(self, text = None, lat = 0, long = 0, radius = 0, APIKey = None):
         
+        
         try:
             arq = open('ss_cache_(dont delete).bin', "rb")
+            self.cache = pickle.load(arq)
+            arq.close()
         except:
             arq = open('ss_cache_(dont delete).bin', "wb") # Cria um arquivo novo
             arq.close()
-            arq = open('ss_cache_(dont delete).bin', "rb") # Ler o arquivo
-    
-        if os.stat(arq).st_size == 0:
             self.cache = {}
-        else:
-            self.cache = pickle.load(arq)
-        arq.close()
         
         self.text = text
         self.coord = (lat, long)
@@ -88,7 +92,6 @@ class SearchSources:
              'Termeletricas',
              'Usinas'])
         self.key = APIKey
-        self.cache = {}
         
         if self.text == None or self.text == '' or len(self.text) <= 3:
             bol = False
@@ -168,9 +171,9 @@ class SearchSources:
             self.df = Local_df
             self.cache[self.text] = self.df
             
-            # Salvando escrevendo no arquivo cache
-            arq = open('ss_cache_(dont delete).bin', "wb")
-            pickle.dump(self.cache,arq)
+            # Salvando e escrevendo no arquivo cache
+            arq = open('ss_cache_(dont delete).bin', "r+b")
+            pickle.dump(self.cache, arq)
             arq.close()               
         
         # Se o objeto pesquisado já estiver no cache, executar:

@@ -12,8 +12,9 @@ import pandas as pd
 
 coffee_shops = []
 params = {}
+key = input('Entre com a sua chave API: ')
   
-endpoint_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&location=-23.559478,-46.733533&radius=1000&region=br&type=restaurant&key=AIzaSyDeGcBJDxPtoGs1PhVVKf7PCT1jPD_iGTU"
+endpoint_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&location=-23.559478,-46.733533&radius=1000&region=br&type=restaurant&key={key}"
          
 res = requests.get(endpoint_url, params = params)
 results =  json.loads(res.content)

@@ -56,11 +56,12 @@ def main():
     Favor indicar um valor maior ou igual a zero")
     
     
+    key = input('Entre com a sua chave API: ')
     # URL e API Google
     List_itens = []
     params = {}
       
-    endpoint_url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query={String_search}&location={Lat_Long}&radius={raio}&region=br&key=AIzaSyDeGcBJDxPtoGs1PhVVKf7PCT1jPD_iGTU" 
+    endpoint_url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query={String_search}&location={Lat_Long}&radius={raio}&region=br&key={key}" 
 
     res = requests.get(endpoint_url, params = params)
     results =  json.loads(res.content)
