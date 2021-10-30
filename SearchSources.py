@@ -93,7 +93,7 @@ class SearchSources:
              'Usinas'])
         self.key = APIKey
         
-        if self.text == None or self.text == '' or len(self.text) <= 3:
+        if (self.text == None or self.text == '' or len(self.text) <= 3) and self.text not in self.worbank:
             bol = False
         else:
             bol = True
